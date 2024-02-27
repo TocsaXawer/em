@@ -53,11 +53,11 @@ class Program
 
     static void Main()
     {
-        string directoryPath = "C:\\Users\\Tóth Csaba János\\source\\repos\\em\\em\\test";
+        string directoryPath = "C:\\test";
         string extension = ".em";
         string[] filepaths = Directory.GetFiles(directoryPath, "*" + extension, SearchOption.AllDirectories);
 
-        Console.WriteLine(DirectoryOpen("C:\\Users\\Tóth Csaba János\\source\\repos\\em\\em\\test", ".em"));
+        Console.WriteLine(DirectoryOpen(directoryPath, extension));
 
         SaveToPST(filepaths, "C:\\PST\\Output.pst");
         Console.WriteLine("File mentve egy PST-be.");
