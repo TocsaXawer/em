@@ -30,19 +30,21 @@ class Program
         return result.ToString();
     }
 
+
     static void SaveToPST(string[] filepaths, string outputPath)
     {
         Outlook.Application outlookApp = new Outlook.Application();
         Outlook.NameSpace outlookNamespace = outlookApp.GetNamespace("MAPI");
         Outlook.Folder rootFolder = outlookNamespace.Session.DefaultStore.GetRootFolder() as Outlook.Folder;
-        Outlook.Folder targetFolder = rootFolder.Folders.Add("Hianyzo mappa", Outlook.OlDefaultFolders.olFolderInbox) as Outlook.Folder;
+        Outlook.Folder targetFolder = rootFolder.Folders.Add("MyFilesFolder", Outlook.OlDefaultFolders.olFolderInbox) as Outlook.Folder;
 
-        foreach (string filepath in filepaths)
+        for (int i = 0; i < filepaths.Length; i++)
         {
+            Console.WriteLine("Processing file: " + filepaths[i]);
             Outlook.MailItem mailItem = outlookApp.CreateItem(Outlook.OlItemType.olMailItem) as Outlook.MailItem;
-            mailItem.Subject = Path.GetFileName(filepath);
-            mailItem.Body = "Ez az attach file: " + Path.GetFileName(filepath);
-            mailItem.Attachments.Add(filepath);
+            mailItem.Subject = Path.GetFileName(filepaths[i]);
+            mailItem.Body = "This is the attached file: " + Path.GetFileName(filepaths[i]);
+            mailItem.Attachments.Add(filepaths[i]);
             mailItem.Save();
             mailItem.Move(targetFolder);
         }
